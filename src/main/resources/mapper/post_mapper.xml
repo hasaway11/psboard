@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.psboard.dao.PostDao">
+	<insert id="save">
+		<selectKey order="BEFORE" resultType="int" keyProperty="pno">
+			select board_seq.nextval from dual
+		</selectKey>
+		insert into post(pno, title, content, writer) values(#{pno}, #{title}, #{content}, #{writer})
+	</insert>	
+	
+	<select id="findAll" resultType="map">
+		select /*+ index_desc(post post_pk_pno) */ pno, title, write_time as writeTime, writer, read_cnt as readCnt from board
+		offset (#{pageno}-1)*#{pagesize} rows fetch next ${pagesize} rows only
+	</select>
+		
+	<select id="findByPno" resultType="map">
+		select pno, title, content, writer, write_time as writeTime, read_cnt as readCnt, good_cnt as goodCnt, bad_cnt as badCnt from board where pno=#{pno} and rownum=1
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
