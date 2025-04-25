@@ -1,5 +1,6 @@
 package com.example.psboard.dto;
 
+import com.example.psboard.member.entity.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.web.multipart.*;
@@ -32,6 +33,10 @@ public class MemberDto {
     @Email
     private String email;
     private MultipartFile profile;
+
+    public Member toEntity(String password, String profile) {
+      return Member.builder().username(username).password(password).email(email).profile(profile).build();
+    }
   }
 
   @Data

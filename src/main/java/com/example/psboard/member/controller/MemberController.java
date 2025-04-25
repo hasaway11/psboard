@@ -25,8 +25,8 @@ public class MemberController {
   @PreAuthorize("isAnonymous()")
   @GetMapping("/api/members/check-username")
   public ResponseEntity<Void> checkUsername(@ModelAttribute @Valid MemberDto.UsernameCheckRequest dto, BindingResult br) {
-    service.checkUsername(dto);
-    return ResponseEntity.ok().build();
+    boolean result = service.checkUsername(dto);
+    return result? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.CONFLICT).build();
   }
 
   @PreAuthorize("isAnonymous()")
@@ -37,8 +37,8 @@ public class MemberController {
 
   @PreAuthorize("isAuthenticated()")
   @GetMapping("/api/members/check-password")
-  public ResponseEntity<Void> checkPassword(@ModelAttribute @Valid MemberDto.PasswordCheckRequest dto, BindingResult br) {
-    service.checkPassword(dto);
+  public ResponseEntity<Void> checkPassword(@ModelAttribute @Valid MemberDto.PasswordCheckRequest dto, BindingResult br, Principal principal) {
+    service.checkPassword(dto, principal.getName());
     return ResponseEntity.ok().build();
   }
 
@@ -58,7 +58,7 @@ public class MemberController {
   @PreAuthorize("isAuthenticated()")
   @PatchMapping("/api/members/resign")
   public ResponseEntity<Void> resign(Principal principal, HttpSession session) {
-    serivce.resign(principal.getName());
+    service.resign(principal.getName());
     session.invalidate();
     return ResponseEntity.ok().build();
   }

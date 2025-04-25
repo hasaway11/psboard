@@ -5,8 +5,8 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface MemberBoardDao {
 	@Select("select count(*) from member_post where username=#{username} and pno=#{pno} and rownum=1")
-	public boolean existsById(String username, Integer bno);
+	boolean existsById(String username, Integer bno);
 	
 	@Insert("insert into member_post(username, pno) values(#{username}, #{pno})")
-	public int save(String username, Integer bno);
+	int save(String username, Integer bno);
 }
