@@ -1,7 +1,10 @@
 package com.example.psboard.dto;
 
+import com.example.psboard.entity.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.time.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostDto {
@@ -11,6 +14,10 @@ public class PostDto {
     private String title;
     @NotEmpty
     private String content;
+
+    public Post toEntity(String loginId) {
+      return Post.builder().title(title).content(content).writer(loginId).build();
+    }
   }
 
   @Data

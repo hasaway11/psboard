@@ -1,4 +1,4 @@
-package com.example.psboard.member.entity;
+package com.example.psboard.entity;
 
 public enum Role {
   USER, MANAGER, ADMIN;

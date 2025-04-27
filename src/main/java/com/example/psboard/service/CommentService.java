@@ -1,0 +1,29 @@
+package com.example.psboard.service;
+
+import com.example.psboard.dao.*;
+import com.example.psboard.dto.*;
+import com.example.psboard.entity.*;
+import com.example.psboard.exception.*;
+
+import lombok.*;
+import org.springframework.stereotype.*;
+
+import java.util.*;
+
+@RequiredArgsConstructor
+@Service
+public class CommentService {
+  private final CommentDao commentDao;
+
+  public List<Comment> write(CommentDto.Craete dto, String loginId) {
+    commentDao.save(dto.toEntity(loginId));
+    return commentDao.findByPno(dto.getPno());
+  }
+
+  public List<Comment> delete(CommentDto.Delete dto, String loginId) {
+    boolean result = commentDao.deleteByCnoAndWriter(dto.getCno(), loginId)==1;
+    if(!result)
+      throw new JobFailException("댓글을 삭제하지 못했습니다");
+    return commentDao.findByPno(dto.getPno());
+  }
+}

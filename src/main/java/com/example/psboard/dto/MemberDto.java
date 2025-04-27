@@ -1,17 +1,27 @@
 package com.example.psboard.dto;
 
-import com.example.psboard.member.entity.*;
+import com.example.psboard.entity.*;
+import com.example.psboard.util.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.web.multipart.*;
+
+import java.time.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemberDto {
   @Data
   public static class UsernameCheckRequest {
     @NotEmpty
-    @Pattern(regexp = "^[A-Z0-9]{6,10}$")
+    @Pattern(regexp = "^[a-z0-9]{6,10}$")
     private String username;
+  }
+
+  @Data
+  public static class UsernameSearchRequest {
+    @NotEmpty
+    @Email
+    private String email;
   }
 
   @Data
@@ -24,7 +34,7 @@ public class MemberDto {
   @Data
   public static class SignUpRequest {
     @NotEmpty
-    @Pattern(regexp = "^[A-Z0-9]{6,10}$")
+    @Pattern(regexp = "^[a-z0-9]{6,10}$")
     private String username;
     @NotEmpty
     @Pattern(regexp = "^[A-Za-z0-9]{6,10}$")
@@ -34,8 +44,9 @@ public class MemberDto {
     private String email;
     private MultipartFile profile;
 
-    public Member toEntity(String password, String profile) {
-      return Member.builder().username(username).password(password).email(email).profile(profile).build();
+    public Member toEntity(String password, String profileName) {
+      System.out.println(Member.builder().username(username).password(password).email(email).profile(profileName).build());
+      return Member.builder().username(username).password(password).email(email).profile(profileName).build();
     }
   }
 
@@ -47,5 +58,17 @@ public class MemberDto {
     @NotEmpty
     @Pattern(regexp = "^[A-Za-z0-9]{6,10}$")
     private String newPassword;
+  }
+
+  @Data
+  @AllArgsConstructor
+  public static class Read {
+    private String username;
+    private String email;
+    private LocalDate joinDay;
+    private long days;
+    private String role;
+    private String level;
+    private String profile;
   }
 }

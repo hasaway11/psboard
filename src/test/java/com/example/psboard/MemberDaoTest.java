@@ -1,7 +1,7 @@
 package com.example.psboard;
 
-import com.example.psboard.member.dao.*;
-import com.example.psboard.member.entity.*;
+import com.example.psboard.dao.*;
+import com.example.psboard.entity.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.context.*;

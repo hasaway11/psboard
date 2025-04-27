@@ -15,5 +15,5 @@ public class Comment {
   @Builder.Default
   private LocalDateTime writeTime = LocalDateTime.now();
   private String writer;
-  private Integer bno;
+  private Integer pno;
 }

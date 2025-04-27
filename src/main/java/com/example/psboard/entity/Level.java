@@ -1,4 +1,4 @@
-package com.example.psboard.member.entity;
+package com.example.psboard.entity;
 
 public enum Level {
   NORMAL("고마운 분"), SILVER("귀한 분"), GOLD("천생연분");

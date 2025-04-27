@@ -21,7 +21,6 @@ public class GlobalControllerAdvice {
 
   @ExceptionHandler(NoResourceFoundException.class)
   public ResponseEntity<String> handleStatic404(NoResourceFoundException ex) {
-    System.out.println("======================================");
     return ResponseEntity.status(404).body("존재하지 않는 URL: " + ex.getResourcePath());
   }
 

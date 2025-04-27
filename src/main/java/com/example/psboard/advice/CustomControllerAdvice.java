@@ -35,4 +35,8 @@ public class CustomControllerAdvice {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
   }
 
+  @ExceptionHandler(JobFailException.class)
+  public ResponseEntity<String> jobFailException(JobFailException e) {
+    return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+  }
 }
