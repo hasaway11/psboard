@@ -26,9 +26,9 @@ public class Member {
   @Builder.Default
   private Level level = Level.NORMAL;
   @Builder.Default
-  private boolean enabled = true;
+  private boolean isLock = false;
   @Builder.Default
-  private int loginFailCnt = 0;
+  private int failedAttempts = 0;
 
   public MemberDto.Read toRead() {
     long days = ChronoUnit.DAYS.between(joinDay, LocalDate.now());

@@ -63,7 +63,7 @@ public class MemberService {
     Member member = memberDao.findByUsername(loginId).orElseThrow(()->new EntityNotFoundException("사용자를 찾을 수 없습니다"));
     if(!passwordEncoder.matches(dto.getOldPassword(), member.getPassword()))
       throw new JobFailException("잘못된 비밀번호입니다");
-    memberDao.updatePassword(passwordEncoder.encode(dto.getNewPassword()), loginId);
+    memberDao.updatePasswordByUsername(passwordEncoder.encode(dto.getNewPassword()), loginId);
   }
 
   public boolean resign(String loginId) {

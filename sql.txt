@@ -18,14 +18,9 @@ create table members (
 	role varchar2(15 char),
 	levels varchar2(15 char),
 	profile varchar2(15 char),
+	is_lock number(1)
+    failed_attempts number(1),
 	constraint members_pk_username primary key(username)
-);
-
-create table members_auth (
-	username varchar2(10 char),
-	enabled number(1),
-	login_fail_cnt number(1),
-	constraint members_auth_pk_username primary key(username)
 );
 
 create table posts (
