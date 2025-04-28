@@ -18,13 +18,17 @@ public class Member {
   @JsonIgnore
   private String password;
   private String email;
+  private String profile;
   @Builder.Default
   private LocalDate joinDay = LocalDate.now();
   @Builder.Default
   private Role role = Role.USER;
   @Builder.Default
   private Level level = Level.NORMAL;
-  private String profile;
+  @Builder.Default
+  private boolean enabled = true;
+  @Builder.Default
+  private int loginFailCnt = 0;
 
   public MemberDto.Read toRead() {
     long days = ChronoUnit.DAYS.between(joinDay, LocalDate.now());
