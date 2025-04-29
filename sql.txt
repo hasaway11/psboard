@@ -1,5 +1,4 @@
 drop table members;
-drop table members_auth;
 drop table posts;
 drop table comments;
 drop table posts_members;
@@ -17,8 +16,8 @@ create table members (
 	join_day date,
 	role varchar2(15 char),
 	levels varchar2(15 char),
-	profile varchar2(15 char),
-	is_lock number(1)
+	profile blob,
+	is_lock number(1),
     failed_attempts number(1),
 	constraint members_pk_username primary key(username)
 );
@@ -41,7 +40,8 @@ create table comments (
 	write_time date,
 	writer varchar2(10 char),
 	pno number(6),
-	constraint comments_pk_cno primary key(cno)
+	constraint comments_pk_cno primary key(cno),
+    constraint comments_fk_pno foreign key(pno) references posts(pno)
 );
 
 create table posts_members (
@@ -50,3 +50,5 @@ create table posts_members (
 	constraint posts_member_pk primary key(pno, username)
 );
 
+String mimeType = file.getContentType();
+<img src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAK..." alt="Profile Image">

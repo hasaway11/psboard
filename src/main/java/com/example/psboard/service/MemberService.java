@@ -26,22 +26,23 @@ public class MemberService {
   }
 
   public Member signUp(MemberDto.SignUpRequest dto) {
+    String encodedPassword = passwordEncoder.encode(dto.getPassword());
+
     MultipartFile profile = dto.getProfile();
     boolean isUploadProfile = profile!=null && !profile.isEmpty();
-    String encodedPassword = passwordEncoder.encode(dto.getPassword());
-    String profileName = BoardConstant.DEFAULT_PROFILE_NAME;
-    if(isUploadProfile) {
-      String ext = FilenameUtils.getExtension(profile.getOriginalFilename());
-      profileName = dto.getUsername() + "." + ext;
-      try {
-        File target = new File(BoardConstant.PROFILE_FOLDER + profileName);
-        profile.transferTo(target);
-        profileName = dto.getUsername() + "." + ext;
-      } catch(IOException e) {
-        e.printStackTrace();
+    byte[] profileBytes = null;
+    try {
+      if (isUploadProfile) {
+        profileBytes = profile.getBytes();
+      } else {
+        File file = new File(BoardConstant.PROFILE_FOLDER, BoardConstant.DEFAULT_PROFILE_NAME);
+        FileInputStream fis = new FileInputStream(file);
+        profileBytes = fis.readAllBytes();
       }
+    } catch(IOException e) {
+
     }
-    Member member = dto.toEntity(encodedPassword, profileName);
+    Member member = dto.toEntity(encodedPassword, profileBytes);
     memberDao.save(member);
     return member;
   }

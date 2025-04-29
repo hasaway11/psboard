@@ -16,6 +16,6 @@ public class SwaggerConfig {
   }
 
   private Info info() {
-    return new Info().title("Mongo Basic API").description("Mongo API reference for developers").version("1.0");
+    return new Info().title("게시판 API").description("게시판 API 레퍼런스 문서화").version("1.0");
   }
 }

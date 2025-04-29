@@ -18,7 +18,7 @@ public class Member {
   @JsonIgnore
   private String password;
   private String email;
-  private String profile;
+  private byte[] profile;
   @Builder.Default
   private LocalDate joinDay = LocalDate.now();
   @Builder.Default
