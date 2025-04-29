@@ -8,6 +8,7 @@ import com.example.psboard.util.*;
 import jakarta.validation.*;
 import lombok.*;
 import org.apache.commons.io.*;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.multipart.*;
@@ -27,22 +28,19 @@ public class MemberService {
 
   public Member signUp(MemberDto.SignUpRequest dto) {
     String encodedPassword = passwordEncoder.encode(dto.getPassword());
-
     MultipartFile profile = dto.getProfile();
     boolean isUploadProfile = profile!=null && !profile.isEmpty();
-    byte[] profileBytes = null;
+    String base64Image = "";
     try {
       if (isUploadProfile) {
-        profileBytes = profile.getBytes();
+        base64Image = FileUtil.convertToBase64(profile);
       } else {
-        File file = new File(BoardConstant.PROFILE_FOLDER, BoardConstant.DEFAULT_PROFILE_NAME);
-        FileInputStream fis = new FileInputStream(file);
-        profileBytes = fis.readAllBytes();
+        base64Image = FileUtil.getDefaultBase64();
       }
     } catch(IOException e) {
-
+      e.printStackTrace();
     }
-    Member member = dto.toEntity(encodedPassword, profileBytes);
+    Member member = dto.toEntity(encodedPassword, base64Image);
     memberDao.save(member);
     return member;
   }

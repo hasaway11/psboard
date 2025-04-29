@@ -16,7 +16,7 @@ create table members (
 	join_day date,
 	role varchar2(15 char),
 	levels varchar2(15 char),
-	profile blob,
+	profile clob,
 	is_lock number(1),
     failed_attempts number(1),
 	constraint members_pk_username primary key(username)
@@ -50,5 +50,3 @@ create table posts_members (
 	constraint posts_member_pk primary key(pno, username)
 );
 
-String mimeType = file.getContentType();
-<img src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAK..." alt="Profile Image">

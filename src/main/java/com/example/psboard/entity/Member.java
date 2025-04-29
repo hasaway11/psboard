@@ -18,7 +18,7 @@ public class Member {
   @JsonIgnore
   private String password;
   private String email;
-  private byte[] profile;
+  private String profile;
   @Builder.Default
   private LocalDate joinDay = LocalDate.now();
   @Builder.Default
@@ -32,6 +32,6 @@ public class Member {
 
   public MemberDto.Read toRead() {
     long days = ChronoUnit.DAYS.between(joinDay, LocalDate.now());
-    return new MemberDto.Read(username, email, joinDay, days, role.name(), level.name(), BoardConstant.IMAGE_URL +  profile);
+    return new MemberDto.Read(username, email, joinDay, days, role.name(), level.name(), profile);
   }
 }

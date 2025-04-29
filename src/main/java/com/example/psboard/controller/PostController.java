@@ -25,7 +25,7 @@ public class PostController {
 
   @Operation(summary="글 목록", description="글 목록 출력")
   @GetMapping(path="/api/posts/{pageno}")
-  public ResponseEntity<Map<String,Object>> findAll(@PathVariable int pageno) {
+  public ResponseEntity<PostDto.Pages> findAll(@PathVariable int pageno) {
     if(pageno<=1)
       pageno = 1;
     return ResponseEntity.ok(service.findAll(pageno, PAGE_SIZE));

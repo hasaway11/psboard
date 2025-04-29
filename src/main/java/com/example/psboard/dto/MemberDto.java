@@ -44,8 +44,8 @@ public class MemberDto {
     private String email;
     private MultipartFile profile;
 
-    public Member toEntity(String password, byte[] profileBytes) {
-      return Member.builder().username(username).password(password).email(email).profile(profileBytes).build();
+    public Member toEntity(String password, String base64Image) {
+      return Member.builder().username(username).password(password).email(email).profile(base64Image).build();
     }
   }
 

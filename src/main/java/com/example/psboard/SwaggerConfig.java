@@ -11,8 +11,6 @@ public class SwaggerConfig {
   public OpenAPI customOpenAPI() {
     // http://localhost:8080/swagger-ui/index.html
     return new OpenAPI().components(new Components()).info(info());
-
-
   }
 
   private Info info() {

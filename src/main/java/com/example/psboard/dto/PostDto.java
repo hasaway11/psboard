@@ -5,9 +5,21 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.*;
+import java.util.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostDto {
+  @Data
+  @AllArgsConstructor
+  public static class Pages {
+    private List<Post> posts;
+    private int prev;
+    private int start;
+    private int end;
+    private int next;
+    private int pageno;
+  }
+
   @Data
   public static class Create {
     @NotEmpty

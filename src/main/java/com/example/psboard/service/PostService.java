@@ -4,6 +4,7 @@ import com.example.psboard.dao.*;
 import com.example.psboard.dto.*;
 import com.example.psboard.entity.*;
 import com.example.psboard.exception.*;
+import com.example.psboard.util.*;
 import jakarta.validation.*;
 import lombok.*;
 import org.springframework.stereotype.*;
@@ -18,10 +19,10 @@ public class PostService {
   private final CommentDao commentDao;
   private final MemberBoardDao memberBoardDao;
 
-  public Map<String, Object> findAll(int pageno, int pagesize) {
+  public PostDto.Pages findAll(int pageno, int pagesize) {
     int totalcount = postDao.count();
     List<Post> posts = postDao.findAll(pageno, pagesize);
-    return Map.of("posts", posts, "totalcount", totalcount, "pageno", pageno, "pagesize", pagesize);
+    return PagingUtil.getPagnation(pageno, totalcount, pagesize, posts);
   }
 
   public Post write(PostDto.Create dto, String loginId) {
