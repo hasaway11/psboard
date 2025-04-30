@@ -24,8 +24,8 @@ public class PostController {
   private final int PAGE_SIZE = 10;
 
   @Operation(summary="글 목록", description="글 목록 출력")
-  @GetMapping(path="/api/posts/{pageno}")
-  public ResponseEntity<PostDto.Pages> findAll(@PathVariable int pageno) {
+  @GetMapping(path="/api/posts")
+  public ResponseEntity<PostDto.Pages> findAll(@RequestParam int pageno) {
     if(pageno<=1)
       pageno = 1;
     return ResponseEntity.ok(service.findAll(pageno, PAGE_SIZE));
@@ -39,8 +39,8 @@ public class PostController {
   }
   
   @Operation(summary="글 읽기", description="글 읽기")
-  @GetMapping(path="/api/posts/{pno}")
-  public ResponseEntity<Map<String,Object>> read(@PathVariable int pno, Principal principal) {
+  @GetMapping(path="/api/posts/post")
+  public ResponseEntity<Map<String,Object>> read(@RequestParam int pno, Principal principal) {
     String loginId = principal!=null? principal.getName() : null;
     return ResponseEntity.ok(service.read(pno, loginId));
   }

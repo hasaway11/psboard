@@ -4,6 +4,5 @@ import java.io.*;
 
 public class BoardConstant {
   public static final String PROFILE_FOLDER = System.getProperty("user.dir") + File.separator + "upload" + File.separator + "profile" + File.separator;
-  public static final String IMAGE_URL = "/image/";
-  public static final String DEFAULT_PROFILE_NAME = "default.png";
+  public static final String DEFAULT_PROFILE_NAME = "default.jpg";
 }

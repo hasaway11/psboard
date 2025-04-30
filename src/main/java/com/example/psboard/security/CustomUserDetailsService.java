@@ -14,6 +14,6 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Member m = memberDao.findByUsername(username).orElseThrow(()->new UsernameNotFoundException(username + " 사용자를 찾을 수 없습니다"));
-    return User.builder().username(username).password(m.getPassword()).roles(m.getRole().name()).accountLocked(!m.isLock()).build();
+    return User.builder().username(username).password(m.getPassword()).roles(m.getRole().name()).accountLocked(m.isLock()).build();
   }
 }

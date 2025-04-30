@@ -10,6 +10,7 @@ import org.springframework.web.method.annotation.*;
 
 @ControllerAdvice
 public class CustomControllerAdvice {
+  // ?pno=aaa일때 이리로 온다
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<String> methodArgumentTypeMismatchException() {
     return ResponseEntity.status(HttpStatus.CONFLICT).body("올바르지 않은 접근경로입니다");

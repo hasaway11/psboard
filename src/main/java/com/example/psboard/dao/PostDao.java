@@ -17,7 +17,7 @@ public interface PostDao {
 	
 	Optional<Post> findByPno(int pno);
 	
-	@Update("update posts set read_cnt=read_cnt+1 where pno=#{pno} and writer!=#{writer}")
+	@Update("update posts set read_cnt=read_cnt+1 where pno=#{pno} and writer!=#{loginId}")
 	int increaseReadCnt(int pno, String loginId);
 	
 	@Update("update posts set title=#{dto.title}, content=#{dto.content} where pno=#{dto.pno} and writer=#{loginId}")
@@ -37,4 +37,6 @@ public interface PostDao {
 
 	@Select("select bad_cnt from posts where pno=#{pno}")
 	int findBadCntByPno(int pno);
+
+	public Map<String,Object> findByPnoWithComments(int pno);
 }

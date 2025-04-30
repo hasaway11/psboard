@@ -16,6 +16,37 @@
 	<select id="findByPno" resultType="post">
 		select pno, title, content, writer, write_time as writeTime, read_cnt as readCnt, good_cnt as goodCnt, bad_cnt as badCnt from posts where pno=#{pno} and rownum=1
 	</select>
+
+	<resultMap type="com.example.psboard.entity.Comment" id="mapForComments">
+		<id property="cno" column="cno"/>
+		<result property="content" column="content"/>
+		<result property="writeTime" column="write_time" javaType="java.time.LocalDateTime" jdbcType="TIMESTAMP"/>
+		<result property="writer" column="writer"/>
+		<result property="pno" column="pno"/>
+	</resultMap>
+
+	<resultMap type="hashmap" id="mapForRead">
+		<id property="pno" column="pno"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="writer" column="writer"/>
+		<result property="writeTime" column="write_time" javaType="java.time.LocalDateTime" jdbcType="DATE"/>
+		<result property="readCnt" column="read_cnt"/>
+		<result property="goodCnt" column="good_cnt"/>
+		<result property="badCnt" column="bad_cnt"/>
+		<collection property="comments" ofType="com.example.psboard.entity.Comment" resultMap="mapForComments" columnPrefix="c_"/>
+	</resultMap>
+
+	<select id="findByPnoWithComments" resultMap="mapForRead">
+		<![CDATA[
+		SELECT
+			b.pno, b.title, b.content, b.writer, b.write_time, b.read_cnt, b.good_cnt, b.bad_cnt, b.content,
+			c.cno AS c_cno, c.writer AS c_writer, c.content AS c_content, c.write_time AS c_write_time, c.pno as c_pno
+		FROM posts b
+				 LEFT OUTER JOIN comments c ON b.pno=c.pno
+		WHERE b.pno=#{pno}
+		]]>
+	</select>
 </mapper>
 
 

@@ -34,7 +34,7 @@ public class PostService {
   public Map<String, Object> read(int pno, String loginId) {
     if(loginId != null)
       postDao.increaseReadCnt(pno, loginId);
-    Post post = postDao.findByPno(pno).orElseThrow(()->new EntityNotFoundException("Post Not Found"));
+    Post post = postDao.findByPno(pno).orElseThrow(()->new EntityNotFoundException("글을 찾을 수 없습니다"));
     List<Comment> comments = commentDao.findByPno(pno);
     return Map.of("post", post, "comments", comments);
   }
@@ -56,4 +56,7 @@ public class PostService {
     postDao.increaseBadCnt(pno, loginId);
     return postDao.findBadCntByPno(pno);
   }
+
+
+
 }
